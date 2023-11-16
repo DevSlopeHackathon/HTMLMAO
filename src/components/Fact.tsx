@@ -1,5 +1,4 @@
-import { wait } from "@testing-library/user-event/dist/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const Fact = () => {
   const [facts, setFacts] = useState([]);
