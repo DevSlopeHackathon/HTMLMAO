@@ -1,0 +1,19 @@
+{
+    "users": [
+        {
+          "id": 1,
+          "username": "alice123",
+        }
+    ],
+    "LeaderBoard": [
+      { "userId": 1, "score": 200 },
+      { "userId": 2, "score": 150 }
+    ],
+    "gameSessions": [
+        {
+          "sessionId": 1,
+          "userId": 1,
+          "score": 50
+        }
+      ]
+}
