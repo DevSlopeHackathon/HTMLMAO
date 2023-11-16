@@ -1,12 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
 import ActionBtn from "../components/ActionBtn";
 
 export const HomePage = () => {
   const { categories, setCategory, category } = useTrivia();
+  const navigate = useNavigate();
 
   const handleCategoryClick = (cat: string) => {
     setCategory(cat);
+  };
+
+  const handleContinue = () => {
+    console.log("Continue to trivia");
+    if (category) {
+      navigate("/gamePage");
+    }
   };
 
   return (
@@ -26,12 +35,12 @@ export const HomePage = () => {
       </div>
 
       <div>
-        <div>Selected Category: {category}</div>
+        <div>
+          Selected Category: {category ? category : "please select a category"}
+        </div>
         <ActionBtn
           disabled={category === ""}
-          onClick={() => {
-            console.log("Continue to trivia");
-          }}
+          onClick={handleContinue}
           text="Continue to Trivia"
         />
       </div>

@@ -5,11 +5,12 @@ const API_BASE_URL = 'https://the-trivia-api.com/v2';
 const fetchQuestionsByCategory = async (category: string): Promise<Question[]> => {
   try {
     const url = new URL(API_BASE_URL + "/questions");
-    url.searchParams.append('limit', '50');
-    url.searchParams.append('categories', category);
+    url.searchParams.append('limit', '50');  
+    url.searchParams.append('categories', category); 
 
     const response = await fetch(url.toString());
     if (!response.ok) {
+      console.error('API response:', await response.text());
       throw new Error(`Error fetching questions: ${response.statusText}`);
     }
     const questions: Question[] = await response.json();
@@ -19,6 +20,7 @@ const fetchQuestionsByCategory = async (category: string): Promise<Question[]> =
     throw error;
   }
 };
+
 
 export const fetchCategories = async (): Promise<string[]> => {
   try {

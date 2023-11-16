@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   ReactNode,
+  useRef,
 } from "react";
 import { Requests } from "../api";
 import { Question } from "../Types";
@@ -20,16 +21,15 @@ type TriviaContextType = {
 
 const TriviaContext = createContext<TriviaContextType | undefined>(undefined);
 
-type TriviaProviderProps = {
-  children: ReactNode;
-};
-
-export const TriviaProvider: React.FC<TriviaProviderProps> = ({ children }) => {
+const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState<string>("");
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Cache for questions
+  const questionCache = useRef(new Map<string, Question[]>()).current;
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -49,12 +49,18 @@ export const TriviaProvider: React.FC<TriviaProviderProps> = ({ children }) => {
   }, []);
 
   const fetchQuestions = async (category: string) => {
+    if (questionCache.has(category)) {
+      setQuestions(questionCache.get(category)!);
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
       const fetchedQuestions = await Requests.fetchQuestionsByCategory(
         category
       );
+      questionCache.set(category, fetchedQuestions);
       setQuestions(fetchedQuestions);
     } catch (err) {
       setError("Failed to fetch questions");
@@ -88,3 +94,5 @@ export const useTrivia = () => {
   }
   return context;
 };
+
+export default TriviaProvider;
