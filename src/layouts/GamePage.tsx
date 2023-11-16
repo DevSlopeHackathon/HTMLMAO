@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HighScore } from "../components/HighScore";
 import { PlayerScore } from "../components/PlayerScore";
 import ActionBtn from "../components/ActionBtn";
 import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
+import { CountdownTimer } from "../components/CountdownTimer";
+import { TriviaScreen } from "../components/TriviaScreen";
 
 export const GamePage = () => {
-  const { category, fetchQuestions, questions, loading, error } = useTrivia();
+  const { category, fetchQuestions, loading, error } = useTrivia();
   const [gameStarted, setGameStarted] = useState(false);
   const navigate = useNavigate();
 
@@ -39,14 +41,19 @@ export const GamePage = () => {
 
   return (
     <div>
+      <CountdownTimer/>
       <HighScore />
       <PlayerScore />
-      {questions.map((question, index) => (
-        <div key={index}>
-          <p>{question.question.text}</p>
-        </div>
-      ))}
+      <TriviaScreen />
       <ActionBtn onClick={handlePrev} text="Back to Categories" />
     </div>
   );
 };
+
+{/* {questions[0].correctAnswer} */}
+
+      {/* {questions[0].incorrectAnswers.map((option, index) => (
+        <div key={index}>
+          <p>{option}</p>
+        </div>
+      ))} */}
