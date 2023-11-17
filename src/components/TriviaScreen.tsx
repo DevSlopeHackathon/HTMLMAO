@@ -9,6 +9,8 @@ export const TriviaScreen = () => {
     setCurrentQuestionIndex,
     score,
     setScore,
+    gameOn,
+    
   } = useTrivia();
   console.log(questions[0]);
 
