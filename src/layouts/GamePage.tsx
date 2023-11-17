@@ -43,7 +43,7 @@ export const GamePage = () => {
     <div>
        <h2>Selected Category: {category}</h2>
       <CountdownTimer />
-      <HighScore />
+      {/* <HighScore /> */}
       <PlayerScore />
       <TriviaScreen />
       <ActionBtn
