@@ -10,7 +10,8 @@ import { TriviaScreen } from "../components/TriviaScreen";
 export const GamePage = () => {
   const { category, fetchQuestions,
      loading, error, setGameOn, gameOn, 
-     setCurrentQuestionIndex, currentQuestionIndex } =
+     setCurrentQuestionIndex, currentQuestionIndex,
+    setScore, setQuestions, questions } =
     useTrivia();
   const navigate = useNavigate();
 
@@ -26,12 +27,22 @@ export const GamePage = () => {
 
   const handleGameEnd = () => {
     setGameOn(false);
+    setScore(0);
+    setQuestions([]);
   };
+
   const skip = () => {
-    setCurrentQuestionIndex(currentQuestionIndex+1);
+    if(currentQuestionIndex>=questions.length-1){
+      console.log("I'm in here")
+      handleGameEnd();
+    }
+    else{
+      setCurrentQuestionIndex(currentQuestionIndex+1);
+    }
   };
 
   const handlePrev = () => {
+    handleGameEnd();
     navigate("/");
   };
 
@@ -48,15 +59,13 @@ export const GamePage = () => {
       <TriviaScreen />
       <ActionBtn
           onClick={() => {
-            handleGameStart;
-            setGameOn(true);
+            handleGameStart();
           }}
           text="Start Game"
         />
       <ActionBtn
         onClick={() => {
-          handleGameEnd;
-          setGameOn(false);
+          handleGameEnd();
         }}
         text="End Game"
       />

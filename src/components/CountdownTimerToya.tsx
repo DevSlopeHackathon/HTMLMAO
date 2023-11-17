@@ -6,7 +6,7 @@ export const CountdownTimer = () => {
   const { gameOn, setGameOn, questions, setQuestions } = useTrivia();
   const [count, { startCountdown, stopCountdown, resetCountdown }] =
     useCountdown({
-      countStart: 6 * 1,
+      countStart: 60 * 1,
       intervalMs: 1000,
     });
 
