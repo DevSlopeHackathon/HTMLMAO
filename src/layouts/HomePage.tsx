@@ -1,49 +1,27 @@
 import React from "react";
+import ActionBtn from "../components/ActionBtn";
 import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
-import ActionBtn from "../components/ActionBtn";
 
 export const HomePage = () => {
-  const { categories, setCategory, category } = useTrivia();
+  const { setGameOn } = useTrivia();
   const navigate = useNavigate();
 
-  const handleCategoryClick = (cat: string) => {
-    setCategory(cat);
-  };
-
-  const handleContinue = () => {
-    console.log("Continue to trivia");
-    if (category) {
-      navigate("/gamePage");
-    }
+  const handleGameStart = () => {
+    setGameOn(true);
+    navigate("/categories");
   };
 
   return (
-    <div>
-      <div className="category-container">
-        {categories.map((cat) => (
-          <div
-            key={cat}
-            className="categories"
-            onClick={() => handleCategoryClick(cat)}
-            role="button"
-            tabIndex={0}
-          >
-            {cat}
-          </div>
-        ))}
-      </div>
-
-      <div>
-        <div>
-          Selected Category: {category ? category : "please select a category"}
-        </div>
-        <ActionBtn
-          disabled={category === ""}
-          onClick={handleContinue}
-          text="Continue to Trivia"
-        />
-      </div>
+    <div className="text-center">
+      <h1 className="">Welcome to Our Trivia Game</h1>
+      <p>Test your knowledge with our fun and challenging trivia questions.</p>
+      <ActionBtn
+        onClick={() => {
+          handleGameStart();
+        }}
+        text="Start Game"
+      />
     </div>
   );
 };

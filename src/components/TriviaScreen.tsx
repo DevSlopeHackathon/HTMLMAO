@@ -41,8 +41,8 @@ export const TriviaScreen = () => {
   return (
     <>
       {questions[currentQuestionIndex] && (
-        <div  className="text-center ">
-         <h5>{questions[currentQuestionIndex].question.text}</h5>
+        <div className="text-center ">
+          <h5>{questions[currentQuestionIndex].question.text}</h5>
           <p>
             {shuffleAnswerChoices(
               questions[currentQuestionIndex].incorrectAnswers.concat(
@@ -53,11 +53,10 @@ export const TriviaScreen = () => {
                 <div
                   className="btn w-1/2"
                   key={questions[currentQuestionIndex].id}
-                  
                   onClick={() => handleChange(answerChoice)}
                 >
                   {answerChoice}
-                  </div>
+                </div>
               </div>
             ))}
           </p>

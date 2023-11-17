@@ -8,11 +8,19 @@ import { CountdownTimer } from "../components/CountdownTimerToya";
 import { TriviaScreen } from "../components/TriviaScreen";
 
 export const GamePage = () => {
-  const { category, fetchQuestions,
-     loading, error, setGameOn, gameOn, 
-     setCurrentQuestionIndex, currentQuestionIndex,
-    setScore, setQuestions, questions } =
-    useTrivia();
+  const {
+    category,
+    fetchQuestions,
+    loading,
+    error,
+    setGameOn,
+    gameOn,
+    setCurrentQuestionIndex,
+    currentQuestionIndex,
+    setScore,
+    setQuestions,
+    questions,
+  } = useTrivia();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,48 +40,64 @@ export const GamePage = () => {
   };
 
   const skip = () => {
-    if(currentQuestionIndex>=questions.length-1){
-      console.log("I'm in here")
+    if (currentQuestionIndex >= questions.length - 1) {
+      console.log("I'm in here");
       handleGameEnd();
-    }
-    else{
-      setCurrentQuestionIndex(currentQuestionIndex+1);
+    } else {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
   const handlePrev = () => {
     handleGameEnd();
-    navigate("/");
+    navigate("/categories");
   };
-
 
   if (loading) return <p>Loading questions...</p>;
   if (error) return <p>Error fetching questions: {error}</p>;
 
   return (
     <div className="text-center">
-       <div className="title-bar">
-       <h2 className="title">{category} Trivia</h2>
-       </div>
+      <div className="title-bar">
+        <h2 className="title">{category} Trivia</h2>
+      </div>
       <CountdownTimer />
-      {/* <HighScore /> */}
       <PlayerScore />
       <TriviaScreen />
-      <ActionBtn
-          onClick={() => {
-            handleGameStart();
-          }}
-          text="Start Game"
-        />
-      <ActionBtn
-        onClick={() => {
-          handleGameEnd();
-        }}
-        text="End Game"
-      />
-      <ActionBtn onClick={skip} text="Skip" />
-      <ActionBtn onClick={handlePrev} text="Back to Categories" />
-      
+      {gameOn ? (
+        <>
+          <ActionBtn
+            onClick={() => {
+              handleGameEnd();
+            }}
+            text="End Game"
+          />
+          <ActionBtn onClick={skip} text="Skip" />
+        </>
+      ) : (
+        <>
+          <ActionBtn
+            onClick={() => {
+              handleGameStart();
+            }}
+            text="Restart Game with Same Category"
+          />
+          <ActionBtn
+            onClick={() => {
+              handlePrev();
+              navigate("/categories");
+            }}
+            text="Back to Categories"
+          />
+          <ActionBtn
+            onClick={() => {
+              handlePrev();
+              navigate("/");
+            }}
+            text="Back Home"
+          />
+        </>
+      )}
     </div>
   );
 };
