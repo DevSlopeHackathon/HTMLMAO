@@ -3,8 +3,9 @@ import { useTrivia } from "../Contexts/TriviaProvider";
 import { Question } from "../Types";
 
 export const TriviaScreen = () => {
-  const { questions, currentQuestion } = useTrivia();
-
+  const { questions, currentQuestion, setCurrentQuestion, currentQuestionIndex,
+     setCurrentQuestionIndex, score, setScore } = useTrivia();
+  console.log(questions[0]);
   //Store from freeCodeCamp
   const shuffle = (array: string[]) => {
     const shuffled = array.slice();
@@ -20,25 +21,38 @@ export const TriviaScreen = () => {
     return shuffled;
   };
 
+  function handleChange(option) {
+    if(option===questions[currentQuestionIndex].correctAnswer) {
+      setScore(score+1);
+    }
+    
+
+    setCurrentQuestionIndex(currentQuestionIndex+1);
+     
+  }
+
+
   return (
     <>
-      {currentQuestion && (
+      {questions[currentQuestionIndex] && (
         <div>
-          <h5>{currentQuestion.question.text}</h5>
+          <h5>{questions[currentQuestionIndex].question.text}</h5>
           <p>
             {shuffle(
-              currentQuestion.incorrectAnswers.concat(
-                currentQuestion.correctAnswer
+              questions[currentQuestionIndex].incorrectAnswers.concat(
+                questions[currentQuestionIndex].correctAnswer
               )
-            ).map((q, id) => (
+            ).map((option, id) => (
               <div key={id}>
                 <input
                   id="radioA"
                   type="radio"
-                  key={currentQuestion.id}
-                  value={q}
+                  key={questions[currentQuestionIndex].id}
+                  value={option}
+                  name={questions[currentQuestionIndex].id}
+                  onClick={() => handleChange(option) }
                 />
-                <label htmlFor="radioA">{q}</label>
+                <label htmlFor="radioA">{option}</label>
               </div>
             ))}
           </p>

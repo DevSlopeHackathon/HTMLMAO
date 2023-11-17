@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTrivia } from "../Contexts/TriviaProvider";
 
 export const PlayerScore = () => {
 
-  const [score, setScore] = useState(0);
+  const { score } = useTrivia();
 
 
 

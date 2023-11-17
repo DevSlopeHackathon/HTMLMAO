@@ -10,7 +10,9 @@ import { Requests } from "../api";
 import { Question } from "../Types";
 
 type TriviaContextType = {
-  currentQuestion: Question | null;
+  currentQuestion: Question | null | undefined;
+  currentQuestionIndex: number;
+  setCurrentQuestionIndex: React.Dispatch<React.SetStateAction<number>>;
   categories: string[];
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
@@ -20,6 +22,8 @@ type TriviaContextType = {
   setGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
   gameStarted: boolean;
   error: string | null;
+  score: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const TriviaContext = createContext<TriviaContextType | undefined>(undefined);
@@ -31,8 +35,9 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [gameStarted, setGameStarted] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
-
+  const [currentQuestion, setCurrentQuestion] = useState<Question | null | undefined>(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [score, setScore] = useState(0);
   // Cache for questions
   const questionCache = useRef(new Map<string, Question[]>()).current;
 
@@ -76,10 +81,16 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (gameStarted && questions.length > 0) {
-      setCurrentQuestion(questions[0]);
+    if (gameStarted && currentQuestionIndex < questions.length) {
+      setCurrentQuestion(questions[currentQuestionIndex]);
+      
     }
-  }, [questions, gameStarted]);
+  }, [currentQuestionIndex, gameStarted, score]);
+
+
+  function increaseScore() {
+    setScore(score+1);
+  }
 
   return (
     <TriviaContext.Provider
@@ -94,6 +105,10 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         setGameStarted,
         loading,
         error,
+        score,
+        setScore,
+        currentQuestionIndex,
+        setCurrentQuestionIndex,
       }}
     >
       {children}
