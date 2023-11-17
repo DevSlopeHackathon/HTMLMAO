@@ -17,6 +17,7 @@ type TriviaContextType = {
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
   questions: Question[];
+  setQuestions: React.Dispatch<React.SetStateAction<Question[]>>;
   fetchQuestions: (category: string) => Promise<void>;
   loading: boolean;
   setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -98,6 +99,7 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         questions,
         fetchQuestions,
         gameOn,
+        setQuestions,
         setGameOn,
         loading,
         error,

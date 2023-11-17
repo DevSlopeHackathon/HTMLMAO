@@ -10,9 +10,7 @@ export const TriviaScreen = () => {
     score,
     setScore,
     gameOn,
-    
   } = useTrivia();
-  console.log(questions[0]);
 
   const shuffleAnswerChoices = (array: string[]) => {
     const shuffled = array.slice();
