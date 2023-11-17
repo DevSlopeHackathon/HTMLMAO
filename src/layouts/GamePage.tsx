@@ -4,7 +4,7 @@ import { PlayerScore } from "../components/PlayerScore";
 import ActionBtn from "../components/ActionBtn";
 import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
-import { CountdownTimer } from "../components/CountdownTimer";
+import { CountdownTimer } from "../components/CountdownTimerToya";
 import { TriviaScreen } from "../components/TriviaScreen";
 
 export const GamePage = () => {
