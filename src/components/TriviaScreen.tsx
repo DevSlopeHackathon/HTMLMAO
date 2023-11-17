@@ -41,24 +41,23 @@ export const TriviaScreen = () => {
   return (
     <>
       {questions[currentQuestionIndex] && (
-        <div>
-          <h5>{questions[currentQuestionIndex].question.text}</h5>
+        <div  className="text-center ">
+         <h5>{questions[currentQuestionIndex].question.text}</h5>
           <p>
             {shuffleAnswerChoices(
               questions[currentQuestionIndex].incorrectAnswers.concat(
                 questions[currentQuestionIndex].correctAnswer
               )
             ).map((answerChoice, id) => (
-              <div key={id} className="field-row">
-                <input
-                  id={id+""}
-                  type="radio"
+              <div key={id} className="field-row flex justify-center">
+                <div
+                  className="btn w-1/2"
                   key={questions[currentQuestionIndex].id}
-                  value={answerChoice}
-                  name={questions[currentQuestionIndex].id}
+                  
                   onClick={() => handleChange(answerChoice)}
-                />
-                <label htmlFor={id+""}>{answerChoice}</label>
+                >
+                  {answerChoice}
+                  </div>
               </div>
             ))}
           </p>

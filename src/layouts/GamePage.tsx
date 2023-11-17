@@ -51,7 +51,7 @@ export const GamePage = () => {
   if (error) return <p>Error fetching questions: {error}</p>;
 
   return (
-    <div>
+    <div className="text-center">
        <div className="title-bar">
        <h2 className="title">{category} Trivia</h2>
        </div>
