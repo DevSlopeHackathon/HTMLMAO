@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTrivia } from "../Contexts/TriviaProvider";
 import { Question } from "../Types";
 
 export const TriviaScreen = () => {
-  const { questions } = useTrivia();
+  const { questions, currentQuestion } = useTrivia();
 
   //Store from freeCodeCamp
   const shuffle = (array: string[]) => {
@@ -20,29 +20,30 @@ export const TriviaScreen = () => {
     return shuffled;
   };
 
-  function getQuestion() {
-    if (questions.length !== 0) {
-      i = questions.pop();
-    }
-  }
-
   return (
-    <div>
-      {questions.map((question, index) => (
-        <div key={index}>
-          <h5>{question.question.text}</h5>
+    <>
+      {currentQuestion && (
+        <div>
+          <h5>{currentQuestion.question.text}</h5>
           <p>
             {shuffle(
-              question.incorrectAnswers.concat(question.correctAnswer)
+              currentQuestion.incorrectAnswers.concat(
+                currentQuestion.correctAnswer
+              )
             ).map((q, id) => (
               <div key={id}>
-                <input id="radioB" name={index + ""} type="radio" value={q} />
-                <label htmlFor="radioB">{q}</label>
+                <input
+                  id="radioA"
+                  type="radio"
+                  key={currentQuestion.id}
+                  value={q}
+                />
+                <label htmlFor="radioA">{q}</label>
               </div>
             ))}
           </p>
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 };

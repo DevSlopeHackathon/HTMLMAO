@@ -8,8 +8,14 @@ import { CountdownTimer } from "../components/CountdownTimerToya";
 import { TriviaScreen } from "../components/TriviaScreen";
 
 export const GamePage = () => {
-  const { category, fetchQuestions, loading, error } = useTrivia();
-  const [gameStarted, setGameStarted] = useState(false);
+  const {
+    category,
+    fetchQuestions,
+    loading,
+    error,
+    setGameStarted,
+    gameStarted,
+  } = useTrivia();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,7 +36,14 @@ export const GamePage = () => {
     return (
       <div>
         <h2>Selected Category: {category}</h2>
-        <ActionBtn onClick={startGame} text="Start Game" />
+        <ActionBtn
+          onClick={() => {
+            startGame;
+            setGameStarted(true);
+          }}
+          text="Start Game"
+        />
+
         <ActionBtn onClick={handlePrev} text="Back to Categories" />
       </div>
     );
@@ -41,7 +54,7 @@ export const GamePage = () => {
 
   return (
     <div>
-      <CountdownTimer/>
+      <CountdownTimer />
       <HighScore />
       <PlayerScore />
       <TriviaScreen />
@@ -50,10 +63,14 @@ export const GamePage = () => {
   );
 };
 
-{/* {questions[0].correctAnswer} */}
+{
+  /* {questions[0].correctAnswer} */
+}
 
-      {/* {questions[0].incorrectAnswers.map((option, index) => (
+{
+  /* {questions[0].incorrectAnswers.map((option, index) => (
         <div key={index}>
           <p>{option}</p>
         </div>
-      ))} */}
+      ))} */
+}

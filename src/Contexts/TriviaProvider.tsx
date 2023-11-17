@@ -10,12 +10,15 @@ import { Requests } from "../api";
 import { Question } from "../Types";
 
 type TriviaContextType = {
+  currentQuestion: Question | null;
   categories: string[];
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
   questions: Question[];
   fetchQuestions: (category: string) => Promise<void>;
   loading: boolean;
+  setGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
+  gameStarted: boolean;
   error: string | null;
 };
 
@@ -27,6 +30,8 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
 
   // Cache for questions
   const questionCache = useRef(new Map<string, Question[]>()).current;
@@ -70,14 +75,23 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    if (gameStarted && questions.length > 0) {
+      setCurrentQuestion(questions[0]);
+    }
+  }, [questions, gameStarted]);
+
   return (
     <TriviaContext.Provider
       value={{
+        currentQuestion,
         categories,
         setCategory,
         category,
         questions,
         fetchQuestions,
+        gameStarted,
+        setGameStarted,
         loading,
         error,
       }}
