@@ -8,7 +8,7 @@ type ActionBtnProps = {
 
 const ActionBtn: React.FC<ActionBtnProps> = ({ text, onClick, disabled }) => {
   return (
-    <button onClick={onClick} className="action-btn" disabled={disabled}>
+    <button onClick={onClick} className="btn" disabled={disabled}>
       {text}
     </button>
   );

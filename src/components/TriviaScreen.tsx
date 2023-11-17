@@ -49,16 +49,16 @@ export const TriviaScreen = () => {
                 questions[currentQuestionIndex].correctAnswer
               )
             ).map((answerChoice, id) => (
-              <div key={id}>
+              <div key={id} className="field-row">
                 <input
-                  id="radioA"
+                  id={id+""}
                   type="radio"
                   key={questions[currentQuestionIndex].id}
                   value={answerChoice}
                   name={questions[currentQuestionIndex].id}
                   onClick={() => handleChange(answerChoice)}
                 />
-                <label htmlFor="radioA">{answerChoice}</label>
+                <label htmlFor={id+""}>{answerChoice}</label>
               </div>
             ))}
           </p>

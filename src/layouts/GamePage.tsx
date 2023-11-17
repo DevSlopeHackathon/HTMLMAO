@@ -52,7 +52,9 @@ export const GamePage = () => {
 
   return (
     <div>
-       <h2>Selected Category: {category}</h2>
+       <div className="title-bar">
+       <h2 className="title">{category} Trivia</h2>
+       </div>
       <CountdownTimer />
       {/* <HighScore /> */}
       <PlayerScore />
