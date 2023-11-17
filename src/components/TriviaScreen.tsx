@@ -3,11 +3,16 @@ import { useTrivia } from "../Contexts/TriviaProvider";
 import { Question } from "../Types";
 
 export const TriviaScreen = () => {
-  const { questions, currentQuestion, setCurrentQuestion, currentQuestionIndex,
-     setCurrentQuestionIndex, score, setScore } = useTrivia();
+  const {
+    questions,
+    currentQuestionIndex,
+    setCurrentQuestionIndex,
+    score,
+    setScore,
+  } = useTrivia();
   console.log(questions[0]);
-  //Store from freeCodeCamp
-  const shuffle = (array: string[]) => {
+
+  const shuffleAnswerChoices = (array: string[]) => {
     const shuffled = array.slice();
     let currentIndex = shuffled.length;
     let temporaryValue, randomIndex;
@@ -21,16 +26,17 @@ export const TriviaScreen = () => {
     return shuffled;
   };
 
-  function handleChange(option) {
-    if(option===questions[currentQuestionIndex].correctAnswer) {
-      setScore(score+1);
+  function handleChange(answerChoice: string) {
+    if (answerChoice === questions[currentQuestionIndex].correctAnswer) {
+      setScore(score + 1);
+    } else {
+      //if answer is incorrect subtract 0.5 from score to prevent spamming
+      if (score > 0) {
+        setScore(score - 0.5);
+      }
     }
-    
-
-    setCurrentQuestionIndex(currentQuestionIndex+1);
-     
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
   }
-
 
   return (
     <>
@@ -38,21 +44,21 @@ export const TriviaScreen = () => {
         <div>
           <h5>{questions[currentQuestionIndex].question.text}</h5>
           <p>
-            {shuffle(
+            {shuffleAnswerChoices(
               questions[currentQuestionIndex].incorrectAnswers.concat(
                 questions[currentQuestionIndex].correctAnswer
               )
-            ).map((option, id) => (
+            ).map((answerChoice, id) => (
               <div key={id}>
                 <input
                   id="radioA"
                   type="radio"
                   key={questions[currentQuestionIndex].id}
-                  value={option}
+                  value={answerChoice}
                   name={questions[currentQuestionIndex].id}
-                  onClick={() => handleChange(option) }
+                  onClick={() => handleChange(answerChoice)}
                 />
-                <label htmlFor="radioA">{option}</label>
+                <label htmlFor="radioA">{answerChoice}</label>
               </div>
             ))}
           </p>

@@ -19,8 +19,8 @@ type TriviaContextType = {
   questions: Question[];
   fetchQuestions: (category: string) => Promise<void>;
   loading: boolean;
-  setGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
-  gameStarted: boolean;
+  setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
+  gameOn: boolean;
   error: string | null;
   score: number;
   setScore: React.Dispatch<React.SetStateAction<number>>;
@@ -34,8 +34,10 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [gameStarted, setGameStarted] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState<Question | null | undefined>(null);
+  const [gameOn, setGameOn] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState<
+    Question | null | undefined
+  >(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   // Cache for questions
@@ -81,16 +83,10 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (gameStarted && currentQuestionIndex < questions.length) {
+    if (gameOn && currentQuestionIndex < questions.length) {
       setCurrentQuestion(questions[currentQuestionIndex]);
-      
     }
-  }, [currentQuestionIndex, gameStarted, score]);
-
-
-  function increaseScore() {
-    setScore(score+1);
-  }
+  }, [currentQuestionIndex, gameOn, score]);
 
   return (
     <TriviaContext.Provider
@@ -101,8 +97,8 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         category,
         questions,
         fetchQuestions,
-        gameStarted,
-        setGameStarted,
+        gameOn,
+        setGameOn,
         loading,
         error,
         score,

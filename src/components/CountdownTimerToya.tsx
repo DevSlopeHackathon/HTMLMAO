@@ -1,17 +1,22 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCountdown } from "usehooks-ts";
-let minutes = 3;
+import { useTrivia } from "../Contexts/TriviaProvider";
+
 export const CountdownTimer = () => {
+  const { gameOn } = useTrivia();
   const [count, { startCountdown, stopCountdown, resetCountdown }] =
     useCountdown({
-      countStart: 60 * minutes,
+      countStart: 60 * 3,
       intervalMs: 1000,
     });
 
   useEffect(() => {
-    startCountdown();
-  }, []);
+    if (gameOn) {
+      startCountdown();
+    } else {
+      stopCountdown();
+    }
+  }, [gameOn, startCountdown, stopCountdown]);
 
   useEffect(() => {
     if (count === 0) {
@@ -19,16 +24,22 @@ export const CountdownTimer = () => {
     }
   }, [count]);
 
-  
-     minutes = Math.floor(count/60);
-    let seconds = count%60;
+  useEffect(() => {
+    // Reset the timer when gameOn is switched from true to false
+    if (!gameOn) {
+      resetCountdown();
+    }
+  }, [gameOn, resetCountdown]);
 
-
+  const minutes = Math.floor(count / 60);
+  let seconds: number | string = count % 60;
   seconds = seconds < 10 ? `0${seconds}` : seconds;
-  // seconds = Number(seconds);
 
-
-
-  // return <div>{<h1>{count}</h1>}</div>;
-  return <div>{<h1>{minutes}:{seconds}</h1>}</div>;
+  return (
+    <div>
+      <h1>
+        {minutes}:{seconds}
+      </h1>
+    </div>
+  );
 };
