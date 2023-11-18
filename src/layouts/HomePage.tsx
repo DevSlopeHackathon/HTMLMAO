@@ -1,21 +1,24 @@
 import React, { useEffect } from "react";
 import ActionBtn from "../components/ActionBtn";
 import { useNavigate } from "react-router-dom";
-import { useTrivia } from "../Contexts/TriviaProvider";\
-import 
+import { useTrivia } from "../Contexts/TriviaProvider";
+import { useLeaderBoard } from "../Contexts/LeaderBoardProvider";
 
 export const HomePage = () => {
+  const { getLeaderBoard, leaderBoard } = useLeaderBoard();
   const { setGameOn } = useTrivia();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getLeaderBoard();
+  }, [leaderBoard]);
+
+  console.log("Leaderboard data:", leaderBoard);
 
   const handleGameStart = () => {
     setGameOn(true);
     navigate("/categories");
   };
-
-  useEffect(() => {
-    
-  }, []);
 
   return (
     <div className="text-center">

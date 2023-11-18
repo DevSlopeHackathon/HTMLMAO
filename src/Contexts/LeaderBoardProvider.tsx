@@ -9,6 +9,7 @@ import { LeaderBoard } from "../Types";
 import { Requests } from "../api";
 
 type LeaderBoardContextType = {
+  getLeaderBoard: () => void;
   leaderBoard: LeaderBoard[];
   updateLeaderBoard: (newEntry: LeaderBoard) => void;
 };
@@ -43,7 +44,9 @@ export const LeaderBoardProvider: React.FC<LeaderBoardProviderProps> = ({
   };
 
   return (
-    <LeaderBoardContext.Provider value={{ leaderBoard, updateLeaderBoard }}>
+    <LeaderBoardContext.Provider
+      value={{ leaderBoard, updateLeaderBoard, getLeaderBoard }}
+    >
       {children}
     </LeaderBoardContext.Provider>
   );
