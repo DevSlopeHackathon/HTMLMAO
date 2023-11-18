@@ -31,19 +31,22 @@ export const GamePage = () => {
 
   const handleGameStart = () => {
     setGameOn(true);
+    setScore(0);
   };
 
   const handleGameEnd = () => {
     setGameOn(false);
-    setScore(0);
     setQuestions([]);
   };
 
+
+
   const skip = () => {
     if (currentQuestionIndex >= questions.length - 1) {
-      console.log("I'm in here");
+      setCurrentQuestionIndex(0);
       handleGameEnd();
-    } else {
+      }
+     else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
@@ -64,6 +67,7 @@ export const GamePage = () => {
       <CountdownTimer />
       <PlayerScore />
       <TriviaScreen />
+
       {gameOn ? (
         <>
           <ActionBtn
