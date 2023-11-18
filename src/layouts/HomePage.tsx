@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ActionBtn from "../components/ActionBtn";
 import { useNavigate } from "react-router-dom";
-import { useTrivia } from "../Contexts/TriviaProvider";
+import { useTrivia } from "../Contexts/TriviaProvider";\
+import 
 
 export const HomePage = () => {
   const { setGameOn } = useTrivia();
@@ -11,6 +12,10 @@ export const HomePage = () => {
     setGameOn(true);
     navigate("/categories");
   };
+
+  useEffect(() => {
+    
+  }, []);
 
   return (
     <div className="text-center">

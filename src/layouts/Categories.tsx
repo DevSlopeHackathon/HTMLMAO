@@ -4,7 +4,7 @@ import { useTrivia } from "../Contexts/TriviaProvider";
 import ActionBtn from "../components/ActionBtn";
 
 export const Categories = () => {
-  const { categories, setCategory, category } = useTrivia();
+  const { categories, setCategory, category, setGameOn } = useTrivia();
   const navigate = useNavigate();
 
   const handleCategoryClick = (cat: string) => {
@@ -13,6 +13,7 @@ export const Categories = () => {
 
   const handleContinue = () => {
     if (category) {
+      setGameOn(true);
       navigate("/gamePage");
     }
   };
@@ -42,7 +43,7 @@ export const Categories = () => {
         <ActionBtn
           disabled={category === ""}
           onClick={handleContinue}
-          text="Continue to Trivia"
+          text="Start Game"
         />
       </div>
     </div>

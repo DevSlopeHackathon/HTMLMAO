@@ -1,5 +1,12 @@
-import React, { useState, useContext, createContext, ReactNode } from "react";
+import React, {
+  useState,
+  useContext,
+  createContext,
+  ReactNode,
+  useEffect,
+} from "react";
 import { LeaderBoard } from "../Types";
+import { Requests } from "../api";
 
 type LeaderBoardContextType = {
   leaderBoard: LeaderBoard[];
@@ -18,6 +25,16 @@ export const LeaderBoardProvider: React.FC<LeaderBoardProviderProps> = ({
   children,
 }) => {
   const [leaderBoard, setLeaderBoard] = useState<LeaderBoard[]>([]);
+
+  const getLeaderBoard = async () => {
+    try {
+      const response = await Requests.fetchLeaderboard();
+      setLeaderBoard(response.data);
+    } catch (error) {
+      console.error("Error fetching leaderboard:", error);
+    }
+    setLeaderBoard(response.data);
+  };
 
   const updateLeaderBoard = (newEntry: LeaderBoard) => {
     setLeaderBoard((prevLeaderBoard) =>
