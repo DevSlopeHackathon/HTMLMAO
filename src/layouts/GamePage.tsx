@@ -31,6 +31,7 @@ export const GamePage = () => {
 
   const handleGameStart = () => {
     setGameOn(true);
+    setCurrentQuestionIndex(0);
     setScore(0);
   };
 
@@ -76,7 +77,7 @@ export const GamePage = () => {
           <ActionBtn onClick={skip} text="Skip" />
         </>
       ) : (
-        <div>
+        <>
           <AddScoreToLeaderboard />
           <div>
             <ActionBtn
@@ -100,7 +101,7 @@ export const GamePage = () => {
               text="Back Home"
             />
           </div>
-        </div>
+        </>
       )}
     </div>
   );
