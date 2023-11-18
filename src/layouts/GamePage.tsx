@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { HighScore } from "../components/HighScore";
 import { PlayerScore } from "../components/PlayerScore";
 import ActionBtn from "../components/ActionBtn";
 import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
 import { CountdownTimer } from "../components/CountdownTimerToya";
 import { TriviaScreen } from "../components/TriviaScreen";
-import { useLeaderBoard } from "../Contexts/LeaderBoardProvider";
 import AddScoreToLeaderboard from "../components/AddScoreToLeaderboard";
 
 export const GamePage = () => {
@@ -20,13 +18,10 @@ export const GamePage = () => {
     setCurrentQuestionIndex,
     currentQuestionIndex,
     setScore,
-    score,
     setQuestions,
     questions,
   } = useTrivia();
   const navigate = useNavigate();
-
-  const { topScores } = useLeaderBoard();
 
   useEffect(() => {
     if (gameOn) {
@@ -62,7 +57,7 @@ export const GamePage = () => {
   if (error) return <p>Error fetching questions: {error}</p>;
 
   return (
-    <div className="text-center">
+    <div className="text-center ">
       <div className="title-bar">
         <h2 className="title">{category} Trivia</h2>
       </div>
@@ -110,15 +105,3 @@ export const GamePage = () => {
     </div>
   );
 };
-
-{
-  /* {questions[0].correctAnswer} */
-}
-
-{
-  /* {questions[0].incorrectAnswers.map((option, index) => (
-        <div key={index}>
-          <p>{option}</p>
-        </div>
-      ))} */
-}

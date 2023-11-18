@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
 import { useTrivia } from "../Contexts/TriviaProvider";
-import { Question } from "../Types";
 
 export const TriviaScreen = () => {
   const {
@@ -9,7 +7,6 @@ export const TriviaScreen = () => {
     setCurrentQuestionIndex,
     score,
     setScore,
-    gameOn,
   } = useTrivia();
 
   const shuffleAnswerChoices = (array: string[]) => {
@@ -30,7 +27,6 @@ export const TriviaScreen = () => {
     if (answerChoice === questions[currentQuestionIndex].correctAnswer) {
       setScore(score + 1);
     } else {
-      //if answer is incorrect subtract 0.5 from score to prevent spamming
       if (score > 0) {
         setScore(score - 0.5);
       }
@@ -49,9 +45,9 @@ export const TriviaScreen = () => {
                 questions[currentQuestionIndex].correctAnswer
               )
             ).map((answerChoice, id) => (
-              <div key={id} className="field-row flex justify-center">
+              <div key={id} className="flex justify-center field-row">
                 <div
-                  className="btn w-1/2"
+                  className="w-1/2 btn "
                   key={questions[currentQuestionIndex].id}
                   onClick={() => handleChange(answerChoice)}
                 >
