@@ -29,12 +29,11 @@ export const LeaderBoardProvider: React.FC<LeaderBoardProviderProps> = ({
 
   const getLeaderBoard = async () => {
     try {
-      const response = await Requests.fetchLeaderboard();
-      setLeaderBoard(response.data);
+      const data = await Requests.fetchLeaderboard();
+      setLeaderBoard(data);
     } catch (error) {
       console.error("Error fetching leaderboard:", error);
     }
-    setLeaderBoard(response.data);
   };
 
   const updateLeaderBoard = (newEntry: LeaderBoard) => {

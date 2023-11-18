@@ -41,6 +41,7 @@ export const GamePage = () => {
 
   const skip = () => {
     if (currentQuestionIndex >= questions.length - 1) {
+      setCurrentQuestionIndex(0);
       handleGameEnd();
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -63,6 +64,7 @@ export const GamePage = () => {
       <CountdownTimer />
       <PlayerScore />
       <TriviaScreen />
+
       {gameOn ? (
         <>
           <ActionBtn

@@ -1,4 +1,4 @@
-import { Question } from "./Types";
+import { Question, LeaderBoard } from "./Types";
 
 const API_BASE_URL = 'https://the-trivia-api.com/v2';
 
@@ -37,21 +37,27 @@ export const fetchCategories = async (): Promise<string[]> => {
   }
 };
 
-export const fetchLeaderboard = async (): Promise<string[]> => {
+export const fetchLeaderboard = async (): Promise<LeaderBoard[]> => {
   try {
+    // Make a GET request to the leaderboard API endpoint
     const response = await fetch(`http://localhost:3000/LeaderBoard`);
+
+    // Check if the response status is OK (status code 200)
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const data = await response.json();
-    console.log(data); 
+
+    // Parse the JSON data from the response
+    const data: LeaderBoard[] = await response.json();
+
+    // Return the parsed data as an array of LeaderBoard objects
     return data;
   } catch (error) {
+    // Handle and log any errors that occur during the request
     console.error('Failed to fetch leaderboard', error);
-    throw error;
-  
- }
-}
+    throw error; // Rethrow the error for further handling, if needed
+  }
+};
 
 
 
