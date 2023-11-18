@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
 import { CountdownTimer } from "../components/CountdownTimerToya";
 import { TriviaScreen } from "../components/TriviaScreen";
+import { useLeaderBoard } from "../Contexts/LeaderBoardProvider";
 
 export const GamePage = () => {
   const {
@@ -18,10 +19,13 @@ export const GamePage = () => {
     setCurrentQuestionIndex,
     currentQuestionIndex,
     setScore,
+    score,
     setQuestions,
     questions,
   } = useTrivia();
   const navigate = useNavigate();
+
+  const { topScores } = useLeaderBoard();
 
   useEffect(() => {
     if (gameOn) {
@@ -76,28 +80,36 @@ export const GamePage = () => {
           <ActionBtn onClick={skip} text="Skip" />
         </>
       ) : (
-        <>
-          <ActionBtn
-            onClick={() => {
-              handleGameStart();
-            }}
-            text="Restart Game with Same Category"
-          />
-          <ActionBtn
-            onClick={() => {
-              handlePrev();
-              navigate("/categories");
-            }}
-            text="Back to Categories"
-          />
-          <ActionBtn
-            onClick={() => {
-              handlePrev();
-              navigate("/");
-            }}
-            text="Back Home"
-          />
-        </>
+        <div>
+          {/* {topScores[topScores.length - 1].score < score && (
+            <>
+              {" "}
+              <input type="text" placeholder="abc" />{" "}
+            </>
+          )} */}
+          <div>
+            <ActionBtn
+              onClick={() => {
+                handleGameStart();
+              }}
+              text="Restart Game with Same Category"
+            />
+            <ActionBtn
+              onClick={() => {
+                handlePrev();
+                navigate("/categories");
+              }}
+              text="Back to Categories"
+            />
+            <ActionBtn
+              onClick={() => {
+                handlePrev();
+                navigate("/");
+              }}
+              text="Back Home"
+            />
+          </div>
+        </div>
       )}
     </div>
   );

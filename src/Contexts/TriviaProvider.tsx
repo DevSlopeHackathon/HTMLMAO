@@ -114,8 +114,6 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-
-
 export const useTrivia = () => {
   const context = useContext(TriviaContext);
   if (context === undefined) {
