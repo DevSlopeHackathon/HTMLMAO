@@ -12,9 +12,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     getLeaderBoard();
-  }, [leaderBoard]);
-
-  console.log("Leaderboard data:", leaderBoard);
+  }, []);
 
   const handleGameStart = () => {
     setGameOn(true);
@@ -31,18 +29,14 @@ export const HomePage = () => {
         }}
         text="Start Game"
       />
-      <h1>
+      <ul>
         {leaderBoard &&
           leaderBoard.map((entry, index) => (
-            // <li key={index}>
-            //   {" "}
-              
-            //   {entry.userId}: {entry.score}{" "}
-             
-            // </li>
-            <div>{index}</div>
+            <li key={index}>
+              {entry.userId}: {entry.score}
+            </li>
           ))}
-      </h1>
+      </ul>
     </div>
   );
 };

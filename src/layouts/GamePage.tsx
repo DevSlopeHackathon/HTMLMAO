@@ -39,14 +39,11 @@ export const GamePage = () => {
     setQuestions([]);
   };
 
-
-
   const skip = () => {
     if (currentQuestionIndex >= questions.length - 1) {
       setCurrentQuestionIndex(0);
       handleGameEnd();
-      }
-     else {
+    } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
