@@ -7,6 +7,7 @@ export type User = {
 
 export type LeaderBoard = {
   userId: number;
+  userName: string;
   score: number;
 };
 

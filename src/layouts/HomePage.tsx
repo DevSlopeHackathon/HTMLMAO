@@ -3,6 +3,7 @@ import ActionBtn from "../components/ActionBtn";
 import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
 import { useLeaderBoard } from "../Contexts/LeaderBoardProvider";
+import { LeaderBoard } from "../Types";
 
 export const HomePage = () => {
   const { getLeaderBoard, leaderBoard } = useLeaderBoard();
@@ -30,6 +31,18 @@ export const HomePage = () => {
         }}
         text="Start Game"
       />
+      <h1>
+        {leaderBoard &&
+          leaderBoard.map((entry, index) => (
+            // <li key={index}>
+            //   {" "}
+              
+            //   {entry.userId}: {entry.score}{" "}
+             
+            // </li>
+            <div>{index}</div>
+          ))}
+      </h1>
     </div>
   );
 };

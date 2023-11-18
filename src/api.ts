@@ -39,12 +39,11 @@ export const fetchCategories = async (): Promise<string[]> => {
 
 export const fetchLeaderboard = async (): Promise<string[]> => {
   try {
-    const response = await fetch(`http://localhost:3000/LeaderBoard`);
+    const response = await fetch(`http://localhost:3000/users`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(data); 
     return data;
   } catch (error) {
     console.error('Failed to fetch leaderboard', error);
