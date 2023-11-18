@@ -31,17 +31,16 @@ export const GamePage = () => {
 
   const handleGameStart = () => {
     setGameOn(true);
+    setScore(0);
   };
 
   const handleGameEnd = () => {
     setGameOn(false);
-    setScore(0);
     setQuestions([]);
   };
 
   const skip = () => {
     if (currentQuestionIndex >= questions.length - 1) {
-      console.log("I'm in here");
       handleGameEnd();
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
