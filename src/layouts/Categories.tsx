@@ -1,14 +1,21 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
 import ActionBtn from "../components/ActionBtn";
 
 export const Categories = () => {
-  const { categories, setCategory, category, setGameOn } = useTrivia();
+  const {
+    categories,
+    setCategory,
+    category,
+    setGameOn,
+    mouseClickSound,
+    startGameSound,
+  } = useTrivia();
   const navigate = useNavigate();
 
   const handleCategoryClick = (cat: string) => {
     setCategory(cat);
+    mouseClickSound.play();
   };
 
   const handleContinue = () => {
@@ -16,22 +23,23 @@ export const Categories = () => {
       setGameOn(true);
       navigate("/gamePage");
     }
+    startGameSound.play();
   };
 
   return (
-    <div className="text-center ">
-      <div className="title-bar">
-        <p className="title">
+    <div className='text-center '>
+      <div className='title-bar'>
+        <p className='title'>
           Selected Category: {category ? category : "please select a category"}
         </p>
       </div>
-      <div className="category-container ">
+      <div className='category-container '>
         {categories.map((cat) => (
           <div
             key={cat}
-            className="btn "
+            className='btn '
             onClick={() => handleCategoryClick(cat)}
-            role="button"
+            role='button'
             tabIndex={0}
           >
             {cat}
@@ -43,7 +51,7 @@ export const Categories = () => {
         <ActionBtn
           disabled={category === ""}
           onClick={handleContinue}
-          text="Start Game"
+          text='Start Game'
         />
       </div>
     </div>

@@ -10,6 +10,7 @@ export const TriviaScreen = () => {
     score,
     setScore,
     gameOn,
+    confirmSound,
   } = useTrivia();
 
   const shuffleAnswerChoices = (array: string[]) => {
@@ -36,12 +37,13 @@ export const TriviaScreen = () => {
       }
     }
     setCurrentQuestionIndex(currentQuestionIndex + 1);
+    confirmSound.play();
   }
 
   return (
     <>
       {questions[currentQuestionIndex] && (
-        <div className="text-center ">
+        <div className='text-center '>
           <h5>{questions[currentQuestionIndex].question.text}</h5>
           <p>
             {shuffleAnswerChoices(
@@ -49,9 +51,9 @@ export const TriviaScreen = () => {
                 questions[currentQuestionIndex].correctAnswer
               )
             ).map((answerChoice, id) => (
-              <div key={id} className="field-row flex justify-center">
+              <div key={id} className='field-row flex justify-center'>
                 <div
-                  className="btn w-1/2"
+                  className='btn w-1/2'
                   key={questions[currentQuestionIndex].id}
                   onClick={() => handleChange(answerChoice)}
                 >

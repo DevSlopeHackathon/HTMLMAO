@@ -23,6 +23,11 @@ export const GamePage = () => {
     score,
     setQuestions,
     questions,
+    goBackSound,
+    confirmSound,
+    startGameSound,
+    mouseClickSound,
+    gameOverSound,
   } = useTrivia();
   const navigate = useNavigate();
 
@@ -37,6 +42,7 @@ export const GamePage = () => {
   const handleGameStart = () => {
     setGameOn(true);
     setScore(0);
+    startGameSound.play();
   };
 
   const handleGameEnd = () => {
@@ -51,20 +57,22 @@ export const GamePage = () => {
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
+    mouseClickSound.play();
   };
 
   const handlePrev = () => {
     handleGameEnd();
     navigate("/categories");
+    goBackSound.play();
   };
 
   if (loading) return <p>Loading questions...</p>;
   if (error) return <p>Error fetching questions: {error}</p>;
 
   return (
-    <div className="text-center">
-      <div className="title-bar">
-        <h2 className="title">{category} Trivia</h2>
+    <div className='text-center'>
+      <div className='title-bar'>
+        <h2 className='title'>{category} Trivia</h2>
       </div>
       <CountdownTimer />
       <PlayerScore />
@@ -75,10 +83,11 @@ export const GamePage = () => {
           <ActionBtn
             onClick={() => {
               handleGameEnd();
+              gameOverSound.play();
             }}
-            text="End Game"
+            text='End Game'
           />
-          <ActionBtn onClick={skip} text="Skip" />
+          <ActionBtn onClick={skip} text='Skip' />
         </>
       ) : (
         <div>
@@ -88,21 +97,21 @@ export const GamePage = () => {
               onClick={() => {
                 handleGameStart();
               }}
-              text="Restart Game with Same Category"
+              text='Restart Game with Same Category'
             />
             <ActionBtn
               onClick={() => {
                 handlePrev();
                 navigate("/categories");
               }}
-              text="Back to Categories"
+              text='Back to Categories'
             />
             <ActionBtn
               onClick={() => {
                 handlePrev();
                 navigate("/");
               }}
-              text="Back Home"
+              text='Back Home'
             />
           </div>
         </div>

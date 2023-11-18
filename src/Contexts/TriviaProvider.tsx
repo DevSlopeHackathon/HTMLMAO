@@ -8,6 +8,11 @@ import React, {
 } from "react";
 import { Requests } from "../api";
 import { Question } from "../Types";
+import mouseClickSound from "../assets/sounds/click.mp3";
+import startGameSound from "../assets/sounds/game-start.mp3";
+import confirmSound from "../assets/sounds/confirm.mp3";
+import goBackSound from "../assets/sounds/goBack.mp3";
+import gameOverSound from "../assets/sounds/gameOver.mp3";
 
 type TriviaContextType = {
   currentQuestion: Question | null | undefined;
@@ -25,6 +30,11 @@ type TriviaContextType = {
   error: string | null;
   score: number;
   setScore: React.Dispatch<React.SetStateAction<number>>;
+  startGameSound: HTMLAudioElement;
+  mouseClickSound: HTMLAudioElement;
+  confirmSound: HTMLAudioElement;
+  goBackSound: HTMLAudioElement;
+  gameOverSound: HTMLAudioElement;
 };
 
 const TriviaContext = createContext<TriviaContextType | undefined>(undefined);
@@ -42,7 +52,11 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const questionCache = useRef(new Map<string, Question[]>()).current;
-
+  const soundClick = new Audio(mouseClickSound);
+  const soundStart = new Audio(startGameSound);
+  const soundConfirm = new Audio(confirmSound);
+  const soundGoBack = new Audio(goBackSound);
+  const soundGameOver = new Audio(gameOverSound);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -106,6 +120,11 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         setScore,
         currentQuestionIndex,
         setCurrentQuestionIndex,
+        startGameSound: soundStart,
+        mouseClickSound: soundClick,
+        confirmSound: soundConfirm,
+        goBackSound: soundGoBack,
+        gameOverSound: soundGameOver,
       }}
     >
       {children}
