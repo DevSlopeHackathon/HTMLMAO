@@ -1,18 +1,11 @@
-import React, { useEffect } from "react";
 import ActionBtn from "../components/ActionBtn";
 import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
-import { useLeaderBoard } from "../Contexts/LeaderBoardProvider";
-import { LeaderBoard } from "../Types";
+import LeaderBoard from "../components/LeaderBoard";
 
 export const HomePage = () => {
-  const { getLeaderBoard, leaderBoard } = useLeaderBoard();
   const { setGameOn } = useTrivia();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getLeaderBoard();
-  }, []);
 
   const handleGameStart = () => {
     setGameOn(true);
@@ -29,14 +22,7 @@ export const HomePage = () => {
         }}
         text="Start Game"
       />
-      <ul>
-        {leaderBoard &&
-          leaderBoard.map((entry, index) => (
-            <li key={index}>
-              {entry.userId}: {entry.score}
-            </li>
-          ))}
-      </ul>
+      <LeaderBoard />
     </div>
   );
 };

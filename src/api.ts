@@ -39,23 +39,32 @@ export const fetchCategories = async (): Promise<string[]> => {
 
 export const fetchLeaderboard = async (): Promise<LeaderBoard[]> => {
   try {
-    // Make a GET request to the leaderboard API endpoint
     const response = await fetch(`http://localhost:3000/LeaderBoard`);
-
-    // Check if the response status is OK (status code 200)
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    // Parse the JSON data from the response
     const data: LeaderBoard[] = await response.json();
-
-    // Return the parsed data as an array of LeaderBoard objects
     return data;
   } catch (error) {
-    // Handle and log any errors that occur during the request
     console.error('Failed to fetch leaderboard', error);
-    throw error; // Rethrow the error for further handling, if needed
+  }
+};
+
+// make a post call to the server to add a new score to the leaderboard
+export const postLeaderboard = async (name: string, score: number): Promise<void> => {
+  try {
+    const response = await fetch(`http://localhost:3000/LeaderBoard`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, score }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Failed to post leaderboard', error);
   }
 };
 

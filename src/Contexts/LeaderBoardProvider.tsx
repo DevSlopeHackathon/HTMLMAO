@@ -9,6 +9,8 @@ import { LeaderBoard } from "../Types";
 import { Requests } from "../api";
 
 type LeaderBoardContextType = {
+  setTopScores: React.Dispatch<React.SetStateAction<LeaderBoard[]>>;
+  topScores: LeaderBoard[];
   getLeaderBoard: () => void;
   leaderBoard: LeaderBoard[];
   updateLeaderBoard: (newEntry: LeaderBoard) => void;
@@ -26,6 +28,7 @@ export const LeaderBoardProvider: React.FC<LeaderBoardProviderProps> = ({
   children,
 }) => {
   const [leaderBoard, setLeaderBoard] = useState<LeaderBoard[]>([]);
+  const [topScores, setTopScores] = useState<LeaderBoard[]>([]);
 
   const getLeaderBoard = async () => {
     try {
@@ -36,6 +39,16 @@ export const LeaderBoardProvider: React.FC<LeaderBoardProviderProps> = ({
     }
   };
 
+  const sortedLeaderBoard = leaderBoard.sort((a, b) => b.score - a.score);
+
+  useEffect(() => {
+    setTopScores(sortedLeaderBoard.slice(0, 10));
+  }, [leaderBoard]);
+
+  useEffect(() => {
+    getLeaderBoard();
+  }, []);
+
   const updateLeaderBoard = (newEntry: LeaderBoard) => {
     setLeaderBoard((prevLeaderBoard) =>
       [...prevLeaderBoard, newEntry].sort((a, b) => b.score - a.score)
@@ -44,7 +57,13 @@ export const LeaderBoardProvider: React.FC<LeaderBoardProviderProps> = ({
 
   return (
     <LeaderBoardContext.Provider
-      value={{ leaderBoard, updateLeaderBoard, getLeaderBoard }}
+      value={{
+        leaderBoard,
+        updateLeaderBoard,
+        getLeaderBoard,
+        topScores,
+        setTopScores,
+      }}
     >
       {children}
     </LeaderBoardContext.Provider>
