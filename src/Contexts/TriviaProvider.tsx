@@ -41,7 +41,6 @@ const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   >(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
-  // Cache for questions
   const questionCache = useRef(new Map<string, Question[]>()).current;
 
   useEffect(() => {

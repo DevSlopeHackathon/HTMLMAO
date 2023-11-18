@@ -5,11 +5,11 @@ const LeaderBoard = () => {
   const { topScores } = useLeaderBoard();
 
   return (
-    <div>
-      <h1>Leaderboard</h1>
+    <div className="m-auto border border-black w-min">
+      <h1 className="border border-black">Leaderboard</h1>
       <ul>
         {topScores.map((entry, index) => (
-          <li key={index}>
+          <li className="border  border-b-black" key={index}>
             {entry.userName}: {entry.score}
           </li>
         ))}

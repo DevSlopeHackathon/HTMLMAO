@@ -1,35 +1,10 @@
 {
-    "users": [
-        {
-          "id": 1,
-          "username": "alice123"
-        }
-    ],
-    "LeaderBoard": [
-      { "userId": 1, "userName": "abc", "score": 5 },
-      { "userId": 2, "userName": "xyz", "score": 0 },
-      { "userId": 3, "userName": "def", "score": 7 },
-      { "userId": 4, "userName": "ghi", "score": 3 },
-      { "userId": 5, "userName": "jkl", "score": 2 },
-      { "userId": 6, "userName": "mno", "score": 0 },
-      { "userId": 7, "userName": "pqr", "score": 10 },
-      { "userId": 8, "userName": "stu", "score": 8 },
-      { "userId": 9, "userName": "vwx", "score": 4 },
-      { "userId": 10, "userName": "yz1", "score": 9 },
-      { "userId": 11, "userName": "234", "score": 1 },
-      { "userId": 12, "userName": "567", "score": 6 },
-      { "userId": 13, "userName": "890", "score": 0 },
-      { "userId": 14, "userName": "abc1", "score": 10 },
-      { "userId": 15, "userName": "xyz1", "score": 0 },
-      { "userId": 16, "userName": "def1", "score": 4 },
-      { "userId": 17, "userName": "ghi1", "score": 7 },
-      { "userId": 18, "userName": "jkl1", "score": 2 },
-      { "userId": 19, "userName": "mno1", "score": 9 },
-      { "userId": 20, "userName": "pqr1", "score": 3 },
-      { "userId": 21, "userName": "stu1", "score": 10 },
-      { "userId": 22, "userName": "vwx1", "score": 1 },
-      { "userId": 23, "userName": "yz2", "score": 8 },
-      { "userId": 24, "userName": "2342", "score": 0 },
-      { "userId": 25, "userName": "5672", "score": 5 }
-    ]
+
+  "LeaderBoard": [
+    {
+      "id": 1,
+      "userName": "roy",
+      "score": 1
+    }
+  ]
 }

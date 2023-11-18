@@ -6,14 +6,14 @@ import React, {
   useEffect,
 } from "react";
 import { LeaderBoard } from "../Types";
-import { Requests } from "../api";
+import { Requests, fetchLeaderboard } from "../api";
 
 type LeaderBoardContextType = {
   setTopScores: React.Dispatch<React.SetStateAction<LeaderBoard[]>>;
   topScores: LeaderBoard[];
   getLeaderBoard: () => void;
   leaderBoard: LeaderBoard[];
-  updateLeaderBoard: (newEntry: LeaderBoard) => void;
+  handlePostScore: (name: string, score: number) => void;
 };
 
 const LeaderBoardContext = createContext<LeaderBoardContextType | undefined>(
@@ -49,17 +49,20 @@ export const LeaderBoardProvider: React.FC<LeaderBoardProviderProps> = ({
     getLeaderBoard();
   }, []);
 
-  const updateLeaderBoard = (newEntry: LeaderBoard) => {
-    setLeaderBoard((prevLeaderBoard) =>
-      [...prevLeaderBoard, newEntry].sort((a, b) => b.score - a.score)
-    );
+  const handlePostScore = async (name: string, score: number) => {
+    try {
+      await Requests.postLeaderboard(name, score);
+      await getLeaderBoard();
+    } catch (error) {
+      console.error("Error adding to leaderBoard:", error);
+    }
   };
 
   return (
     <LeaderBoardContext.Provider
       value={{
         leaderBoard,
-        updateLeaderBoard,
+        handlePostScore,
         getLeaderBoard,
         topScores,
         setTopScores,
@@ -69,6 +72,8 @@ export const LeaderBoardProvider: React.FC<LeaderBoardProviderProps> = ({
     </LeaderBoardContext.Provider>
   );
 };
+
+//make a post function to post to the leaderboard and then update the leaderboard
 
 export const useLeaderBoard = () => {
   const context = useContext(LeaderBoardContext);

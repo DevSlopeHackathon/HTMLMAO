@@ -6,7 +6,7 @@ export type User = {
 };
 
 export type LeaderBoard = {
-  userId: number;
+  id: number;
   userName: string;
   score: number;
 };

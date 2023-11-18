@@ -7,6 +7,7 @@ import { useTrivia } from "../Contexts/TriviaProvider";
 import { CountdownTimer } from "../components/CountdownTimerToya";
 import { TriviaScreen } from "../components/TriviaScreen";
 import { useLeaderBoard } from "../Contexts/LeaderBoardProvider";
+import AddScoreToLeaderboard from "../components/AddScoreToLeaderboard";
 
 export const GamePage = () => {
   const {
@@ -81,12 +82,7 @@ export const GamePage = () => {
         </>
       ) : (
         <div>
-          {/* {topScores[topScores.length - 1].score < score && (
-            <>
-              {" "}
-              <input type="text" placeholder="abc" />{" "}
-            </>
-          )} */}
+          <AddScoreToLeaderboard />
           <div>
             <ActionBtn
               onClick={() => {

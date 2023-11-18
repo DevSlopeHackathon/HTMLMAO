@@ -50,21 +50,25 @@ export const fetchLeaderboard = async (): Promise<LeaderBoard[]> => {
   }
 };
 
-// make a post call to the server to add a new score to the leaderboard
-export const postLeaderboard = async (name: string, score: number): Promise<void> => {
+// make a post call to the server to add a new score to the leaderboard 
+ const postLeaderboard = async (name, score) => {
   try {
     const response = await fetch(`http://localhost:3000/LeaderBoard`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name, score }),
+      body: JSON.stringify({ userName: name, score }), // Ensure this matches your backend's expected format
     });
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
+
+    return await response.json(); // Assuming your server responds with the updated data
   } catch (error) {
-    console.error('Failed to post leaderboard', error);
+    console.error('Failed to post leaderboard entry:', error);
+    throw error;
   }
 };
 
@@ -74,4 +78,5 @@ export const Requests = {
   fetchQuestionsByCategory,
   fetchCategories,
   fetchLeaderboard,
+  postLeaderboard
 };
