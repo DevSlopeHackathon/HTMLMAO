@@ -81,12 +81,12 @@ export const GamePage = () => {
         </>
       ) : (
         <div>
-          {/* {topScores[topScores.length - 1].score < score && (
+          {topScores[topScores.length - 1].score < score && (
             <>
               {" "}
               <input type="text" placeholder="abc" />{" "}
             </>
-          )} */}
+          )}
           <div>
             <ActionBtn
               onClick={() => {
