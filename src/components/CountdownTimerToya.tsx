@@ -3,7 +3,8 @@ import { useCountdown } from "usehooks-ts";
 import { useTrivia } from "../Contexts/TriviaProvider";
 
 export const CountdownTimer = () => {
-  const { gameOn, setGameOn, questions, setQuestions } = useTrivia();
+  const { gameOn, setGameOn, questions, setQuestions, currentQuestionIndex } =
+    useTrivia();
   const [count, { startCountdown, stopCountdown, resetCountdown }] =
     useCountdown({
       countStart: 60 * 1,
@@ -27,8 +28,9 @@ export const CountdownTimer = () => {
 
   useEffect(() => {
     // Reset the timer when gameOn is switched from true to false
-    if (!gameOn) {
+    if (!gameOn || currentQuestionIndex === questions.length - 1) {
       resetCountdown();
+      setGameOn(false);
     }
   }, [gameOn, resetCountdown]);
 

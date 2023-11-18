@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { HighScore } from "../components/HighScore";
 import { PlayerScore } from "../components/PlayerScore";
 import ActionBtn from "../components/ActionBtn";
 import { useNavigate } from "react-router-dom";
 import { useTrivia } from "../Contexts/TriviaProvider";
 import { CountdownTimer } from "../components/CountdownTimerToya";
 import { TriviaScreen } from "../components/TriviaScreen";
-import { useLeaderBoard } from "../Contexts/LeaderBoardProvider";
 import AddScoreToLeaderboard from "../components/AddScoreToLeaderboard";
 
 export const GamePage = () => {
@@ -20,7 +18,6 @@ export const GamePage = () => {
     setCurrentQuestionIndex,
     currentQuestionIndex,
     setScore,
-    score,
     setQuestions,
     questions,
     goBackSound,
@@ -30,8 +27,6 @@ export const GamePage = () => {
     gameOverSound,
   } = useTrivia();
   const navigate = useNavigate();
-
-  const { topScores } = useLeaderBoard();
 
   useEffect(() => {
     if (gameOn) {
@@ -119,15 +114,3 @@ export const GamePage = () => {
     </div>
   );
 };
-
-{
-  /* {questions[0].correctAnswer} */
-}
-
-{
-  /* {questions[0].incorrectAnswers.map((option, index) => (
-        <div key={index}>
-          <p>{option}</p>
-        </div>
-      ))} */
-}

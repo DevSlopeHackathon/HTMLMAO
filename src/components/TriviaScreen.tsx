@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
 import { useTrivia } from "../Contexts/TriviaProvider";
-import { Question } from "../Types";
 
 export const TriviaScreen = () => {
   const {
@@ -31,7 +29,6 @@ export const TriviaScreen = () => {
     if (answerChoice === questions[currentQuestionIndex].correctAnswer) {
       setScore(score + 1);
     } else {
-      //if answer is incorrect subtract 0.5 from score to prevent spamming
       if (score > 0) {
         setScore(score - 0.5);
       }
